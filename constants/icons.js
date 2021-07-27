@@ -1,5 +1,5 @@
-//export const object = require("../route")
+export const back = require("../assets/icons/back.png")
 
-// export default {
-//     //object, etc...
-// }
+export default {
+    back
+}
