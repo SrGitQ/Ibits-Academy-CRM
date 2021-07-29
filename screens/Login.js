@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 
 import {
     SafeAreaView,
@@ -9,22 +9,28 @@ import {
     TextInput,
     TouchableOpacity,
     Dimensions,
-    ScrollView
+    ScrollView,
+    Alert
 } from "react-native"
 
 import { icons, images, SIZES, COLORS, FONTS } from "../constants";
+import { RenderLogo } from "../components";
 
 const windowHeight = Dimensions.get('window').height;
 
+let Delta = {
+    user : "root",
+    pass : "admin"
+}
 
-const Login = () => {
+const Login = ({navigation}) => {
+    const [user, setUser] = useState(Delta.user)
+    const [pass, setPass] = useState("")
 
     const LogoRender = () => {
         return (
             <View style={{alignItems:'center'}}>
-                <View  style={styles.imageLogoBlender}>
-                    <Text style={styles.mainText}>Logo</Text>
-                </View>
+                <RenderLogo size ={120}/>
             </View>
         );        
     }
@@ -32,33 +38,33 @@ const Login = () => {
     const TitleRender = () => {
         return (
             <View style={{alignItems:'center'}}>
-                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white}}>Registro de pagos</Text>
+                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white}}>Acceso</Text>
             </View>
         );        
     }
 
     const FormRender = () => {
         return (
-            <View style={{paddingVertical:100}}>
+            <View style={{paddingVertical:10}}>
                 <View style={{paddingVertical:20}}>
                     <Text style={styles.mainText}>Usuario</Text>
                     <TextInput 
-                        style={{ 
-                            borderColor:COLORS.alternBlue,
-                            borderWidth:1,
-                            flexDirection:'row',
-
+                        style={styles.inputBox}
+                        value={"root"}
+                        onChangeText={(user) =>{
+                            setUser(user)
+                            console.log(user)
                         }}
                     />
                 </View>
                 <View style={{paddingVertical:20}}>
                     <Text style={styles.mainText}>Contraseña</Text>
-                    <TextInput 
-                        style={{ 
-                            borderColor:COLORS.alternBlue,
-                            borderWidth:1,
-                            flexDirection:'row',
-
+                    <TextInput
+                        secureTextEntry={true}
+                        style={styles.inputBox}
+                        onChangeText={(pass) =>{
+                            setPass(pass)
+                            console.log(pass)
                         }}
                     />
                 </View>
@@ -68,6 +74,13 @@ const Login = () => {
                         height:40,
                         justifyContent:'center',
                         alignItems:'center'
+                    }}
+                    onPress={() => {
+                        if (user === Delta.user && pass === Delta.pass){
+                            navigation.navigate("Home")
+                        }else{
+                            Alert.alert('','Su Usuario/Contraseña no coinciden intenta nuevamente')
+                        }
                     }}
                 >
                     <Text style={styles.mainText}>Aceptar</Text>
@@ -86,6 +99,12 @@ const Login = () => {
 }
 
 const styles = StyleSheet.create({
+    inputBox:{ 
+        borderColor:COLORS.alternBlue,
+        borderWidth:1,
+        flexDirection:'row',
+
+    },
     imageLogoBlender:{
         borderColor:'white',
         borderWidth:1,
@@ -102,7 +121,7 @@ const styles = StyleSheet.create({
         fontSize:17
     },
     container:{
-        height:windowHeight,
+        flex:1,
         backgroundColor:COLORS.mainblue,
         padding:20,
         justifyContent:'center'

@@ -4,6 +4,7 @@ import Edit from "./Edit"
 import Pay from "./Pay"
 import Course from "./Course"
 import Counter from "./Counter"
+import Add from "./Add"
 
 export{
     Home,
@@ -11,5 +12,6 @@ export{
     Edit,
     Pay,
     Course,
-    Counter
+    Counter,
+    Add
 }

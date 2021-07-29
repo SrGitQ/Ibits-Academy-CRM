@@ -13,17 +13,22 @@ import {
 } from "react-native"
 
 import { icons, images, SIZES, COLORS, FONTS } from "../constants";
-import InputTextBox from "../components/InputTextBox"
+import { BackButton, InputTextBox } from "../components";
 
 const windowHeight = Dimensions.get('window').height;
 
 
-const Course = () => {
+// <View style={{alignItems:'center', flexDirection:'row'}}>
+// <BackButton size={40} back={() => navigation.goBack()}/>
+// <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white, flex:2}}>Cliente</Text>
+// </View>
+const Course = ({ navigation }) => {
 
     const TitleRender = () => {
         return (
-            <View style={{alignItems:'center'}}>
-                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white}}>Nuevo Curso</Text>
+            <View style={{alignItems:'center', flexDirection:'row'}}>
+                <BackButton size={40} back={() => navigation.goBack()}></BackButton>
+                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white, flex:5}}>Nuevo Curso</Text>
             </View>
         );        
     }
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
         borderWidth:1
     },
     container:{
-        height:windowHeight,
+        flex:1,
         backgroundColor:COLORS.mainblue,
         padding:10,
         justifyContent:'center'

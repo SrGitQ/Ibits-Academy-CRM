@@ -1,5 +1,5 @@
-//export const object = require("../route")
+export const logo = require("../assets/images/logo.png")
 
-// export default {
-//     object, etc...
-// }
+export default {
+    logo,
+}
