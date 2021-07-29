@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 
 import {
     SafeAreaView,
@@ -13,32 +13,89 @@ import {
 } from "react-native"
 
 import { icons, images, SIZES, COLORS, FONTS } from "../constants";
+import { RenderLogo, BackButton, DateForm } from "../components"
 
 const windowHeight = Dimensions.get('window').height;
 
 
-const Home = () => {
+
+const data = [
+    {
+        id:1,
+        name:"Victor Uribe",
+        course:"Introduction to python",
+        notification:"26/06/21",
+        paytype:"monthly",
+        adeudo:"15,000.00",
+        phone:"999-999-9999",
+        data:"He is paying for 2 kids",
+        income:"5,000.00",
+        date:"Junio 17",
+        pay:false
+    },
+    {
+        id:2,
+        name:"Osiris Cámara",
+        course:"Introduction to python",
+        notification:"26/06/21",
+        paytype:"monthly",
+        adeudo:"15,000.00",
+        phone:"999-999-9999",
+        data:"He is paying for 2 kids",
+        income:"1,400.00",
+        date:"Junio 20",
+        pay:false
+    },
+    {
+        id:3,
+        name:"Juan Manuel",
+        course:"Introduction to python",
+        notification:"26/06/21",
+        paytype:"monthly",
+        adeudo:"15,000.00",
+        phone:"999-999-9999",
+        data:"He is paying for 2 kids",
+        income:"5,000.00",
+        date:"Junio 17 Pagado",
+        pay:true
+    },
+    {
+        id:4,
+        name:"Isabel Cámara",
+        course:"Introduction to python",
+        notification:"26/06/21",
+        paytype:"monthly",
+        adeudo:"15,000.00",
+        phone:"999-999-9999",
+        data:"He is paying for 2 kids",
+        income:"1,400.00",
+        date:"Junio 20 Pagado",
+        pay:true
+    },
+
+]
+
+
+
+
+
+
+const Home = ({navigation}) => {
+
+    const [option, setOption] = useState(1)
+
     const HeaderRender = () => {
         return (
             <View style={styles.headerArea}>
-                {/* {<Image source={icons.back} style={styles.backButton}></Image>} */}
+                <BackButton size={40} back={()=>navigation.navigate("Login")}/>
             </View>
         );        
     }
     const GeneralInformationRender = () => {
-        let months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-        let time = new Date
-        let day = time.getDate()
-        let year = time.getFullYear()
-        let month = months[time.getMonth()] 
         return (
             <View style={styles.generalInformation}>
-                <View style={styles.imageLogoBlender}>
-                    <Text style={styles.mainText}>
-                        LOGO
-                    </Text>
-                </View>
-                <Text style={styles.mainText}>{month} {day}, {year}</Text>
+                <RenderLogo size={120}/>
+                <Text style={styles.mainText}>{DateForm}</Text>
             </View>
         )
     }
@@ -55,48 +112,76 @@ const Home = () => {
             </View>
         )
     }
-    const ClientsRender = () => {
-        const ClientInfo = (props) => {
-            return(
-                <View style={{backgroundColor:COLORS.alternBlue, padding:15, paddingHorizontal:30, flexDirection:'row', margin:10, justifyContent:'space-between', height:100}}>
-                    <View style={{justifyContent:'center'}}>
-                        <Text style={styles.mainText}>{props.name}</Text>
-                        <Text style={styles.mainText}>${props.income}</Text>
-                        <Text style={styles.mainText}>{props.date}</Text>
-                    </View>
-                    <View style={{justifyContent:'space-between'}}>
-                        <TouchableOpacity
-                            style={{backgroundColor:COLORS.mainblue, height:30, justifyContent:'center', alignItems:'center',width:100}}
-                        >
-                            <Text style={styles.mainText}>Editar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{backgroundColor:COLORS.mainblue, height:30, justifyContent:'center', alignItems:'center',width:100}}
-                        >
-                            <Text style={styles.mainText}>Add Pay</Text>
-                        </TouchableOpacity>
-                    </View>
 
+    const ClientInfo = (props) => {
+        let client = props.client
+        return(
+            <View style={{backgroundColor:COLORS.alternBlue, padding:15, paddingHorizontal:30, flexDirection:'row', margin:10, justifyContent:'space-between', height:100}}>
+                <View style={{justifyContent:'center'}}>
+                    <Text style={styles.mainText}>{client.name}</Text>
+                    <Text style={styles.mainText}>${client.income}</Text>
+                    <Text style={styles.mainText}>{client.date}</Text>
                 </View>
-            )
+                <View style={{justifyContent:'space-between'}}>
+                    <TouchableOpacity
+                        style={{backgroundColor:COLORS.mainblue, height:30, justifyContent:'center', alignItems:'center',width:100}}
+                        onPress={ () => navigation.navigate("Edit", {client}) }
+                    >
+                        <Text style={styles.mainText}>Editar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{backgroundColor:COLORS.mainblue, height:30, justifyContent:'center', alignItems:'center',width:100}}
+                        onPress={ () => navigation.navigate("Pay") }
+                    >
+                        <Text style={styles.mainText}>Add Pay</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        )
+    }
+    const doubtClients = data.map( (item, i) => {
+        if (item.pay != true){
+            return (<ClientInfo client={item} key={i}/>)
         }
+    })
+    const dupClients = data.map( (item, i) => {
+        return (<ClientInfo client={item} key={i}/>)
+    })
+
+
+    const ClientsRender = () => {
+
         return(
             <View style={{padding:15, flex:0.7}}>
                 <View style={{flexDirection:'row', justifyContent:'space-around'}}>
-                    <TouchableOpacity
-                        style={{height:30, width:100}}
-                    >
-                        <Text style={styles.mainText}>Por pagar</Text>
+                    <TouchableOpacity style={styles.optionalButton} onPress={() => {
+                        setOption(1)
+                        }}>
+                        <Text 
+                            style={{
+                                color: (option)? COLORS.mainwhite:COLORS.darkgray,
+                                fontWeight:'bold',
+                                fontSize:17
+                            }}
+                        >
+                            Por pagar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{height:30, width:100}}
-                    >
-                        <Text style={styles.mainTextNoAble}>Todos</Text>
+                    <TouchableOpacity style={styles.optionalButton} onPress={()=>{
+                        setOption(0)
+                        }}>
+                        <Text 
+                            style={{
+                                color:(option)? COLORS.darkgray:COLORS.mainwhite,
+                                fontWeight:'bold',
+                                fontSize:17
+                            }}
+                        >
+                            Todos</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView >
-                    <ClientInfo name="Victor Uribe" income="5,000.00" date="Junio 17"/>
-                    <ClientInfo name="Osiris Cámara" income="1,400.00" date="Junio 20"/>
+                <ScrollView>
+                    {(option)? doubtClients : dupClients}
                 </ScrollView>
 
             </View>
@@ -106,12 +191,8 @@ const Home = () => {
         return (
             <View style={{padding:15}}>
                 <TouchableOpacity
-                    style={{
-                        backgroundColor:COLORS.alternBlue,
-                        height:40,
-                        justifyContent:'center',
-                        alignItems:'center'
-                    }}
+                    style={styles.addButton}
+                    onPress={() => navigation.navigate("Add")}
                 >
                     <Text style={styles.mainText}>Añadir</Text>
                 </TouchableOpacity>
@@ -131,6 +212,16 @@ const Home = () => {
 }
 
 const styles = StyleSheet.create({
+    optionalButton:{
+        height:30, 
+        width:100
+    },
+    addButton:{
+        backgroundColor:COLORS.alternBlue,
+        height:40,
+        justifyContent:'center',
+        alignItems:'center'
+    },
     mainTextNoAble:{
         color:COLORS.darkgray,
         fontWeight:'bold',
@@ -152,16 +243,6 @@ const styles = StyleSheet.create({
         color:COLORS.mainwhite,
         fontWeight:'bold',
         fontSize:17
-    },
-    imageLogoBlender:{
-        borderColor:'white',
-        borderWidth:1,
-        borderRadius:100,
-        height:120,
-        width:120,
-        justifyContent:'center',
-        alignItems:'center',
-
     },
     generalInformation:{
         flex:0.18,

@@ -18,12 +18,15 @@ import InputTextBox from "../components/InputTextBox"
 const windowHeight = Dimensions.get('window').height;
 
 
-const Pay = () => {
+const Pay = ({ navigation }) => {
 
     const TitleRender = () => {
         return (
-            <View style={{alignItems:'center'}}>
-                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white}}>Añadir Pago</Text>
+            <View style={{alignItems:'center', flexDirection:'row', justifyContent:'space-around'}}>
+                <TouchableOpacity onPress={ () => navigation.goBack()}>
+                    <Image source={icons.back} style={styles.backButton}></Image>
+                </TouchableOpacity>
+                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white, left:-20}}>Añadir Pago</Text>
             </View>
         );        
     }
@@ -77,7 +80,11 @@ const styles = StyleSheet.create({
         backgroundColor:COLORS.mainblue,
         padding:10,
         justifyContent:'center'
-    }
+    },
+    backButton:{
+        width:40,
+        height:40,
+    },
 
 })
 

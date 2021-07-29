@@ -13,33 +13,68 @@ import {
 } from "react-native"
 
 import { icons, images, SIZES, COLORS, FONTS } from "../constants";
-import InputTextBox from "../components/InputTextBox"
+import { InputTextBox, BackButton } from "../components";
 
 const windowHeight = Dimensions.get('window').height;
 
 
-const Edit = () => {
+const Edit = ({ route, navigation }) => {
+    let {client} = route.params
 
     const TitleRender = () => {
         return (
-            <View style={{alignItems:'center'}}>
-                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white}}>Cliente</Text>
+            <View style={{alignItems:'center', flexDirection:'row'}}>
+                <BackButton size={40} back={() => navigation.goBack()}/>
+                <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white, flex:2}}>Cliente</Text>
             </View>
         );        
     }
+
 
     const FormRender = () => {
         return (
             <View style={{flex:1, paddingVertical:30}}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <InputTextBox placeholder="Victor Rodrigo Uribe" title = "Nombre"></InputTextBox>
-                    <InputTextBox placeholder="Introduction to python" title = "Cursos"></InputTextBox>
-                    <InputTextBox placeholder="(One pay/ monthly, Weekly)" title = "Tipo de pago"></InputTextBox>
-                    <InputTextBox placeholder="26/06/21" title = "Fecha de notificación"></InputTextBox>
-                    <InputTextBox placeholder="$ 5,000.00" title = "Total por exhibición"></InputTextBox>
-                    <InputTextBox placeholder="$ 15,000.00" title = "Adeudo Total"></InputTextBox>
-                    <InputTextBox placeholder="999-999-9999" title = "Numero de telefono"></InputTextBox>
-                    <InputTextBox placeholder="He is paying for 2 kids" title = "Notas"></InputTextBox>
+                    <InputTextBox value={client.name} title = "Nombre"></InputTextBox>
+
+
+
+                    <View style={{paddingVertical:20}}>
+                        <Text style={styles.mainText}>Cursos</Text>
+                        <View
+                            style={{ 
+                                borderColor:COLORS.alternBlue,
+                                borderWidth:1,
+                                flexDirection:'row',
+                                justifyContent:'space-between'
+                            }}
+                        >
+                            <TextInput 
+                                value={client.course}
+                                placeholder={"Introduccion ..."}
+                            />
+                            <TouchableOpacity
+                                style={{
+                                    justifyContent:'center',
+                                    alignItems:'center',
+                                    width:40,
+                                    borderLeftWidth:1,
+                                    borderLeftColor:COLORS.alternBlue
+                                }}
+                                onPress={()=>navigation.navigate("Course")}
+                            >
+                                <Text style={styles.mainText}>+</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    
+                    <InputTextBox value={client.paytype} title = "Tipo de pago"></InputTextBox>
+                    <InputTextBox value={client.notification} title = "Fecha de notificación"></InputTextBox>
+                    <InputTextBox value={client.income} title = "Total por exhibición"></InputTextBox>
+                    <InputTextBox value={client.adeudo} title = "Adeudo Total"></InputTextBox>
+                    <InputTextBox value={client.phone} title = "Numero de telefono"></InputTextBox>
+                    <InputTextBox value={client.data} title = "Notas"></InputTextBox>
 
                 </ScrollView>
 
@@ -50,6 +85,7 @@ const Edit = () => {
                         justifyContent:'center',
                         alignItems:'center'
                     }}
+                    onPress={ () => navigation.goBack()}
                 >
                     <Text style={styles.mainText}>Aceptar</Text>
                 </TouchableOpacity>
