@@ -76,8 +76,12 @@ const Login = ({navigation}) => {
                         alignItems:'center'
                     }}
                     onPress={() => {
-                        if (user === Delta.user && pass === Delta.pass){
-                            navigation.navigate("Home")
+                        if (user === Delta.user){
+                            if (pass === Delta.pass){
+                                navigation.navigate("Home")
+                            }else if (pass === 'cont') {
+                                navigation.navigate("Counter")
+                            }
                         }else{
                             Alert.alert('','Su Usuario/Contraseña no coinciden intenta nuevamente')
                         }

@@ -22,7 +22,7 @@ const windowHeight = Dimensions.get('window').height;
 // <BackButton size={40} back={() => navigation.goBack()}/>
 // <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white, flex:2}}>Cliente</Text>
 // </View>
-const Course = ({ navigation }) => {
+const Course = ({route, navigation }) => {
 
     const TitleRender = () => {
         return (
@@ -32,6 +32,7 @@ const Course = ({ navigation }) => {
             </View>
         );        
     }
+    let {setCourses} = route.params
 
     const FormRender = () => {
         return (
@@ -39,9 +40,6 @@ const Course = ({ navigation }) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <InputTextBox placeholder="Introduction to Java" title = "Curso"></InputTextBox>
                     <InputTextBox placeholder="$ 10,000.00" title = "Total"></InputTextBox>
-                    <InputTextBox placeholder="Montly" title = "Tipo de pago"></InputTextBox>
-                    <InputTextBox placeholder="5" title = "Numero de pagos"></InputTextBox>
-
                 </ScrollView>
 
                 <TouchableOpacity
@@ -51,6 +49,7 @@ const Course = ({ navigation }) => {
                         justifyContent:'center',
                         alignItems:'center'
                     }}
+                    onPress={() => setCourses()}
                 >
                     <Text style={styles.mainText}>Aceptar</Text>
                 </TouchableOpacity>
