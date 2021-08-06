@@ -9,7 +9,8 @@ import {
     TextInput,
     TouchableOpacity,
     Dimensions,
-    ScrollView
+    ScrollView,
+    Button
 } from "react-native"
 
 import { icons, images, SIZES, COLORS, FONTS } from "../constants";
@@ -17,6 +18,10 @@ import { RenderLogo, BackButton, DateForm } from "../components"
 
 const windowHeight = Dimensions.get('window').height;
 
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { clientsUpdate } from "../usersActions";
 
 
 const data = [
@@ -97,9 +102,7 @@ const data = [
 
 
 
-
-
-const Home = ({navigation}) => {
+const Home = (props) => {
 
     const [option, setOption] = useState(1)
 
@@ -132,8 +135,13 @@ const Home = ({navigation}) => {
         )
     }
 
+
+    const {clients, navigation}  = props
+
     const ClientInfo = (props) => {
         let client = props.client
+        
+
         return(
             <View style={{backgroundColor:COLORS.alternBlue, padding:15, paddingHorizontal:30, flexDirection:'row', margin:10, justifyContent:'space-between', height:100}}>
                 <View style={{justifyContent:'center'}}>
@@ -159,12 +167,12 @@ const Home = ({navigation}) => {
             </View>
         )
     }
-    const doubtClients = data.map( (item, i) => {
+    const doubtClients = clients.map( (item, i) => {
         if (item.pay != true){
             return (<ClientInfo client={item} key={i}/>)
         }
     })
-    const dupClients = data.map( (item, i) => {
+    const dupClients = clients.map( (item, i) => {
         return (<ClientInfo client={item} key={i}/>)
     })
 
@@ -284,4 +292,14 @@ const styles = StyleSheet.create({
 
 })
 
-export default Home
+const mapStateToProps = (state, props) => {
+    return {clients: state.clients, navigation:props.navigation}
+}
+
+// const mapDispatchToProps = dispatch => (
+//     bindActionCreators({
+//         clientsUpdate
+//     }, dispatch)
+// )
+
+export default connect(mapStateToProps)(Home)

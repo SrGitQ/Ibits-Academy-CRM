@@ -22,7 +22,7 @@ const windowHeight = Dimensions.get('window').height;
 // <BackButton size={40} back={() => navigation.goBack()}/>
 // <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white, flex:2}}>Cliente</Text>
 // </View>
-const Course = ({ navigation }) => {
+const Course = ({route, navigation }) => {
 
     const TitleRender = () => {
         return (
@@ -32,6 +32,7 @@ const Course = ({ navigation }) => {
             </View>
         );        
     }
+    let {setCourses} = route.params
 
     const FormRender = () => {
         return (
@@ -48,6 +49,7 @@ const Course = ({ navigation }) => {
                         justifyContent:'center',
                         alignItems:'center'
                     }}
+                    onPress={() => setCourses()}
                 >
                     <Text style={styles.mainText}>Aceptar</Text>
                 </TouchableOpacity>

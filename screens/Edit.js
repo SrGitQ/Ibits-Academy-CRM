@@ -81,13 +81,13 @@ const Edit = ({ route, navigation }) => {
                 <BackButton size={40} back={() => navigation.goBack()}/>
                 <Text style={{fontSize:50, fontWeight:'bold', color:COLORS.white, flex:2}}>Cliente</Text>
             </View>
-        );        
+        );
     }
 
     const FormRender = () => {
         const courses = client.courses.map((course, index) =>{
             return(
-                <CourseBoxRender course = {course.idn} sample={(index < (client.courses.length-1))} nav={()=>navigation.navigate("Course")}></CourseBoxRender>
+                <CourseBoxRender key={index} course = {course.idn} sample={(index < (client.courses.length-1))} nav={()=>navigation.navigate("Course")}></CourseBoxRender>
             )
         })
         return (
