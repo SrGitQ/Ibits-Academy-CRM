@@ -39,9 +39,6 @@ const Course = ({ navigation }) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <InputTextBox placeholder="Introduction to Java" title = "Curso"></InputTextBox>
                     <InputTextBox placeholder="$ 10,000.00" title = "Total"></InputTextBox>
-                    <InputTextBox placeholder="Montly" title = "Tipo de pago"></InputTextBox>
-                    <InputTextBox placeholder="5" title = "Numero de pagos"></InputTextBox>
-
                 </ScrollView>
 
                 <TouchableOpacity

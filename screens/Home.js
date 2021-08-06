@@ -23,7 +23,11 @@ const data = [
     {
         id:1,
         name:"Victor Uribe",
-        course:"Introduction to python",
+        courses:[
+            {idn:"Introduction to python", total:10000},
+            {idn:"Introduction to Java", total:10000},
+            {idn:"Algorithms", total:10000},
+        ],
         notification:"26/06/21",
         paytype:"monthly",
         adeudo:"15,000.00",
@@ -36,7 +40,12 @@ const data = [
     {
         id:2,
         name:"Osiris Cámara",
-        course:"Introduction to python",
+        courses:[
+            {
+                idn:"Introduction to python",
+                total:10000
+            }
+        ],
         notification:"26/06/21",
         paytype:"monthly",
         adeudo:"15,000.00",
@@ -49,7 +58,12 @@ const data = [
     {
         id:3,
         name:"Juan Manuel",
-        course:"Introduction to python",
+        courses:[
+            {
+                idn:"Introduction to python",
+                total:10000
+            }
+        ],
         notification:"26/06/21",
         paytype:"monthly",
         adeudo:"15,000.00",
@@ -62,7 +76,12 @@ const data = [
     {
         id:4,
         name:"Isabel Cámara",
-        course:"Introduction to python",
+        courses:[
+            {
+                idn:"Introduction to python",
+                total:10000
+            }
+        ],
         notification:"26/06/21",
         paytype:"monthly",
         adeudo:"15,000.00",

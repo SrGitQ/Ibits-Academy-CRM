@@ -84,18 +84,22 @@ const Edit = ({ route, navigation }) => {
         );        
     }
 
-
     const FormRender = () => {
+        const courses = client.courses.map((course, index) =>{
+            return(
+                <CourseBoxRender course = {course.idn} sample={(index < (client.courses.length-1))} nav={()=>navigation.navigate("Course")}></CourseBoxRender>
+            )
+        })
         return (
             <View style={{flex:1, paddingVertical:30}}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <InputTextBox value={client.name} title = "Nombre"></InputTextBox>
 
 
-                    {/* here will be a list of the courses */}
+
                     <View style={{paddingVertical:20}}>
                         <Text style={styles.mainText}>Cursos</Text>
-                        <CourseBoxRender course = {client.course} sample={false} nav={()=>navigation.navigate("Course")}></CourseBoxRender>
+                        {courses}
                     </View>
 
                     <Text style={styles.mainText}>Tipo de pago</Text>
