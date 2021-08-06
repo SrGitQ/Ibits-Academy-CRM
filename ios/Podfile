@@ -12,6 +12,8 @@ target 'IbitsCRM' do
     :hermes_enabled => false
   )
 
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
   target 'IbitsCRMTests' do
     inherit! :complete
     # Pods for testing
