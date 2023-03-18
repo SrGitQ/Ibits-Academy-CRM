@@ -1,7 +1,7 @@
 # Ibits-Academy-CRM
 - Ibits Academy CRM Software by Piston Cup Software
 
-### Read the manual!
+### ![Read the manual!](https://github.com/SrGitQ/Ibits-Academy-CRM/blob/main/manual.pdf)
 
 Ibits-Academy-CRM is a React Native application designed to help a company that provides children's programming courses better manage its clients. The application serves as a customer relationship management (CRM) tool, allowing the company to keep track of client information, including contact details, payment history, and course enrollment.
 
